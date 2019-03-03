@@ -4,4 +4,4 @@
 2. create an empty `jenkins-data/` directory. This directory will contain all Jenkins data
 3. Run `sudo docker-compose up -d`
 
-Watch tutorial: https://www.youtube.com/watch?v=k4Sv7_XVoe0
+Watch tutorial:
