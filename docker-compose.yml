@@ -24,6 +24,7 @@ services:
                         - ./postgres-data:/var/lib/postgresql/data
         sonarqube-byznass:
                 image: sonarqube
+                user: "${UID}:${GID}"
                 volumes:
                         - ./sonarqube-data/conf:/opt/sonarqube/conf
                         - ./sonarqube-data/data:/opt/sonarqube/data
