@@ -6,8 +6,6 @@ services:
                 volumes:
                         - /var/run/docker.sock:/var/run/docker.sock
                         - ./jenkins-data:/var/jenkins_home
-                ports:
-                        - "50000:50000"
                 user: "${UID}:${GID}"
         nginx-proxy:
                 image: nginx
@@ -17,3 +15,21 @@ services:
                 ports:
                         - "80:80"
                         - "443:443"
+        postgres-byznass:
+                image: postgres
+                environment:
+                        - POSTGRES_USER=sonar
+                        - POSTGRES_PASSWORD=sonar
+                volumes:
+                        - ./postgres-data:/var/lib/postgresql/data
+        sonarqube-byznass:
+                image: sonarqube
+                volumes:
+                        - ./sonarqube-data/conf:/opt/sonarqube/conf
+                        - ./sonarqube-data/data:/opt/sonarqube/data
+                        - ./sonarqube-data/logs:/opt/sonarqube/logs
+                        - ./sonarqube-data/extensions:/opt/sonarqube/extensions
+                environment:
+                        - sonar.jdbc.username=sonar
+                        - sonar.jdbc.password=sonar
+                        - sonar.jdbc.url=jdbc:postgresql://postgres-byznass/sonar
