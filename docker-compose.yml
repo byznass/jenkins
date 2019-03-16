@@ -6,7 +6,7 @@ services:
                 volumes:
                         - /var/run/docker.sock:/var/run/docker.sock
                         - jenkins-data:/var/jenkins_home
-                user: "jenkins:${GID}"
+                user: "jenkins:${DOCKER_GID}"
         nginx-proxy:
                 image: nginx
                 volumes:
