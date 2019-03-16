@@ -13,7 +13,7 @@ sudo cp /etc/letsencrypt/archive/sonar.tiolktrack.byznass.com/fullchain1.pem cer
 sudo cp /etc/letsencrypt/archive/sonar.tiolktrack.byznass.com/privkey1.pem certs/sonar-privkey.key
 ```
 7. Remove [Certbot](https://certbot.eff.org): `sudo apt-get --purge remove certbot -t stretch-backports`
-13. Run `export DOCKER_GID=999` - look for this value in `/etc/group` at id for `docker` group
+13. Run `export DOCKER_GID=999` - look for this value in `/etc/group` at id for `docker` group. This variable is used in `docker-compose.yml`
 15. Run `docker-compose up` - first add current user in `doker` group 
 
 Watch tutorial [here](https://youtu.be/VhnVoYd-cjQ)
