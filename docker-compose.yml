@@ -5,8 +5,8 @@ services:
                 build: .
                 volumes:
                         - /var/run/docker.sock:/var/run/docker.sock
-                        - ./jenkins-data:/var/jenkins_home
-                user: "${UID}:${GID}"
+                        - jenkins-data:/var/jenkins_home
+                user: "jenkins:${GID}"
         nginx-proxy:
                 image: nginx
                 volumes:
@@ -21,16 +21,22 @@ services:
                         - POSTGRES_USER=sonar
                         - POSTGRES_PASSWORD=sonar
                 volumes:
-                        - ./postgres-data:/var/lib/postgresql/data
+                        - postgres-data:/var/lib/postgresql/data
         sonarqube-byznass:
-                image: sonarqube
-                user: "${UID}:${GID}"
+                image: sonarqube:6.7-community
                 volumes:
-                        - ./sonarqube-data/conf:/opt/sonarqube/conf
-                        - ./sonarqube-data/data:/opt/sonarqube/data
-                        - ./sonarqube-data/logs:/opt/sonarqube/logs
-                        - ./sonarqube-data/extensions:/opt/sonarqube/extensions
+                        - sonarqube-data-conf:/opt/sonarqube/conf
+                        - sonarqube-data-data:/opt/sonarqube/data
+                        - sonarqube-data-logs:/opt/sonarqube/logs
+                        - sonarqube-data-extensions:/opt/sonarqube/extensions
                 environment:
                         - sonar.jdbc.username=sonar
                         - sonar.jdbc.password=sonar
                         - sonar.jdbc.url=jdbc:postgresql://postgres-byznass/sonar
+volumes:
+        jenkins-data:
+        postgres-data:
+        sonarqube-data-conf:
+        sonarqube-data-data:
+        sonarqube-data-logs:
+        sonarqube-data-extensions:
