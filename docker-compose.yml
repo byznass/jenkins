@@ -9,6 +9,9 @@ services:
                 user: "jenkins:${DOCKER_GID}"
                 environment:
                         - DB_INTEGRATION_TEST_HOST=dbIntegrationTestPostgresContainer
+		networks:
+			- dbIntegrationTest
+			- jenkinsCiNetwork
         nginx-proxy:
                 image: nginx
                 volumes:
@@ -17,6 +20,8 @@ services:
                 ports:
                         - "80:80"
                         - "443:443"
+		networks:
+			- jenkinsCiNetwork
         postgres-byznass:
                 image: postgres
                 environment:
@@ -24,6 +29,8 @@ services:
                         - POSTGRES_PASSWORD=sonar
                 volumes:
                         - postgres-data:/var/lib/postgresql/data
+		networks:
+			- jenkinsCiNetwork
         sonarqube-byznass:
                 image: sonarqube:6.7-community
                 volumes:
@@ -35,6 +42,9 @@ services:
                         - sonar.jdbc.username=sonar
                         - sonar.jdbc.password=sonar
                         - sonar.jdbc.url=jdbc:postgresql://postgres-byznass/sonar
+		networks:
+			- jenkinsCiNetwork
+
 volumes:
         jenkins-data:
         postgres-data:
@@ -42,3 +52,9 @@ volumes:
         sonarqube-data-data:
         sonarqube-data-logs:
         sonarqube-data-extensions:
+
+networks:
+	dbIntegrationTest:
+		driver: bridge
+	jenkinsCiNetwork:
+		driver: bridge
