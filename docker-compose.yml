@@ -55,6 +55,8 @@ volumes:
 
 networks:
         dbIntegrationTest:
+                name: dbIntegrationTest
                 driver: bridge
         jenkinsCiNetwork:
+                name: jenkinsCiNetwork
                 driver: bridge
