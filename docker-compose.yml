@@ -7,8 +7,6 @@ services:
                         - /var/run/docker.sock:/var/run/docker.sock
                         - jenkins-data:/var/jenkins_home
                 user: "jenkins:${DOCKER_GID}"
-                environment:
-                        - DB_INTEGRATION_TEST_HOST=dbIntegrationTestPostgresContainer
                 networks:
                         - dbIntegrationTest
                         - jenkinsCiNetwork
